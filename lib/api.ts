@@ -85,3 +85,38 @@ export const authApi = {
 
   me: () => api.get("/auth/me"),
 };
+
+// Users API endpoints
+export const usersApi = {
+  getUsers: (params?: {
+    page?: number;
+    limit?: number;
+    query?: string;
+    userStatus?: string;
+    role?: string;
+    sortBy?: string;
+    sortOrder?: string;
+  }) => api.get("/admin/users", { params }),
+
+  getUser: (userId: string) => api.get(`/admin/users/${userId}`),
+
+  deleteUser: (userId: string) => api.delete(`/admin/users/${userId}`),
+
+  restoreUser: (userId: string) => api.post(`/admin/users/${userId}/restore`),
+
+  updateUserRole: (userId: string, roles: string[]) =>
+    api.put(`/admin/users/${userId}/roles`, { roles }),
+
+  updateUserStatus: (userId: string, status: string) =>
+    api.put(`/admin/users/${userId}/status`, { status }),
+
+  verifyUser: (userId: string) => api.put(`/admin/users/${userId}/verify`),
+
+  verifyKyc: (userId: string) => api.put(`/admin/users/${userId}/verify-kyc`),
+
+  updateFraudRisk: (userId: string, risk: string) =>
+    api.put(`/admin/users/${userId}/risk`, { risk }),
+
+  updateDefaultAddress: (userId: string, addressId: string) =>
+    api.post(`/admin/users/${userId}/address/${addressId}/default`),
+};
