@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { authApi } from "@/lib/api";
 import { toast } from "sonner";
 import { AxiosError } from "axios";
@@ -113,6 +113,20 @@ export const useResetPassword = () => {
       } else {
         toast.error(error.response?.data?.message || "Password reset failed");
       }
+    },
+  });
+};
+
+export const useMe = () => {
+  return useQuery({
+    queryKey: ["me"],
+    queryFn: authApi.me,
+    retry: (failureCount, error: AxiosError) => {
+      // Don't retry on 401 or 503 errors
+      if (error?.response?.status === 401 || error?.response?.status === 503) {
+        return false;
+      }
+      return failureCount < 3;
     },
   });
 };

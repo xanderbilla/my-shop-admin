@@ -82,4 +82,6 @@ export const authApi = {
     verificationCode: string;
     newPassword: string;
   }) => api.post("/auth/reset-password", data),
+
+  me: () => api.get("/auth/me"),
 };

@@ -27,7 +27,7 @@ export function LoginForm({
     e.preventDefault();
     signinMutation.mutate(formData, {
       onSuccess: () => {
-        router.push("/");
+        router.push("/dashboard");
       },
     });
   };
