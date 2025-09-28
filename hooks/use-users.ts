@@ -153,10 +153,17 @@ export function useUpdateDefaultAddress() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ userId, addressId }: { userId: string; addressId: string }) =>
-      usersApi.updateDefaultAddress(userId, addressId),
+    mutationFn: ({
+      userId,
+      addressId,
+    }: {
+      userId: string;
+      addressId: string;
+    }) => usersApi.updateDefaultAddress(userId, addressId),
     onSuccess: (data) => {
-      toast.success(data.data.message || "Default address updated successfully");
+      toast.success(
+        data.data.message || "Default address updated successfully"
+      );
       queryClient.invalidateQueries({ queryKey: ["users"] });
       queryClient.invalidateQueries({ queryKey: ["user"] });
     },
